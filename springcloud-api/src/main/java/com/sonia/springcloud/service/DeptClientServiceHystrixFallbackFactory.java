@@ -28,7 +28,7 @@ public class DeptClientServiceHystrixFallbackFactory implements FallbackFactory<
 
             @Override
             public List<Dept> queryAll() {
-                return null;//尽量不要返回null
+                return null;//尽量不要返回null，这里只是偷懒
             }
 
             @Override
