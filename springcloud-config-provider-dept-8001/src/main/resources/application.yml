@@ -1,0 +1,7 @@
+#用户级别的配置， 其实这里面写不写都无所谓了，因为
+##远程仓库的 config-provider-dept.yml 里对name 都配置好了，如：springcloud-config-provider-dept-dev
+##不过可以以此为效果，看Eureka 上到底是哪个名字生效，
+##肯定是 远程config 生效
+spring:
+  application:
+    name: springcloud-config-provider-dept-8001

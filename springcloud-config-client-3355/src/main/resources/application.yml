@@ -1,0 +1,7 @@
+#用户级别的配置
+server:
+  port: 3355 #其实这里都可以不用配置，因为它会由bootstrap.yml里的profile 环境指定的端口所覆盖 可以见我的印象笔记 springcloud 文章17
+
+spring:
+  application:
+    name: springcloud-config-client-3355

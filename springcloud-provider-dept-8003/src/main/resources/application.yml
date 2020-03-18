@@ -1,0 +1,40 @@
+server:
+  port: 8003
+
+#mybatis配置
+mybatis:
+  type-aliases-package: com.sonia.springcloud.pojo
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mappers/*.xml
+ # configuration: #  #  configuration 和 configLocation 不能同时存在
+  #  map-underscore-to-camel-case: true  #将带有下划线的表字段映射为驼峰格式的实体类属性
+
+#spring配置
+spring:
+  application:
+    name: springcloud-provider-dept #也是Eureka 网页上的服务列表的application name
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: org.gjt.mm.mysql.Driver  #extends com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/db03?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 123456
+
+#Eureka 配置 表明服务要注册到哪里
+eureka:
+  client:
+    service-url:
+      #单机模式
+      #defaultZone: http://localhost:7001/eureka/
+      #集群模式 其实改不改都无所谓
+      #defaultZone: http://eureka7001.com:7001/eureka/
+      #集群模式 这好写成这样更安全，更好，尽管效果相同(在7001，7002，7003都启动的情况下)，但是如果只启动了7002和7003，如果像上一行只写了7001，那么provider的微服务启来也注册不上去
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
+  instance:
+    instance-id: springcloud-provider-dept8003 #修改Eureka网站上的默认描述信息 即status一栏 默认格式是：${hostname} + ${spring.application.name} + ${server.port}
+    prefer-ip-address: true #true actuator里面可以显示服务器的IP地址
+
+#actuator 配置  是配合 Eureka 网页上的status的超链接内容
+info: # Map 信息，没什么意义 一般这里面都是放些哪些人开发的服务接口，联系电话和邮件等
+  app.name: sonia-springcloud-dept8003
+  company.name: sonia-company

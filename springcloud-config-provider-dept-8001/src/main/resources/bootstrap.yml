@@ -1,0 +1,9 @@
+#系统级别的配置
+spring:
+  cloud:
+    config:
+      name: config-provider-dept #需要从git上面读取的目标资源名称（即读取 git上的 config-provider-dept.yml文件），不要文件后缀名(一个网上大家都能读得文件)
+      label: master #表示git仓库的master分支
+      profile: test
+      uri: http://localhost:3344 # 向config-server module读取
+      #其实就是网页读取http://localhost:3344/config-client-dev.yml

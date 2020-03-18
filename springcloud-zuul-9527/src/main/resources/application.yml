@@ -1,0 +1,30 @@
+server:
+  port: 9527
+
+#Eureka里的 serviceId
+spring:
+  application:
+    name: springcloud-zuul
+
+# 向Eureka发起注册
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
+  instance:
+    instance-id: zuul9527.com
+    prefer-ip-address: true # actuator 里显示真实地址
+
+# actuator info
+info:
+  app.name: springcloud-zuul-gateway
+
+#zuul 在进行路由访问时 修改Eureka 上的服务id 暴露 感觉像是把 Nginx 的事情也做了
+zuul:
+  routes:
+    # serviceId和path 这两个后缀是固定写法 详见ZuulProperties.ZuulRoute
+    mydept.serviceId: springcloud-provider-dept #保持小写
+    mydept.path: /mydept/**
+  ignored-services: springcloud-provider-dept # 表示路由将屏蔽原路由serviceId暴露式的访问方式 如：http://www.sonia.com:9527/springcloud-provider-dept/dept/get/1 不能访问了
+  #ignored-services: "*" # 表示隐藏所有 ServiceId的暴露式访问
+  prefix: /haha #可以不配的，表示URL的公共前缀, 千万不要写 /zuul 因为 http://www.sonia.com:9527/zuul/mydept/dept/get/1 本身也是可以访问的,原因可以看 ZuulProperties.servletPath = "/zuul";

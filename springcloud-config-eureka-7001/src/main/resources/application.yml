@@ -1,0 +1,2 @@
+#用户级别的配置
+#可以什么都不写 因为 远程配置文件里写了 spring.application.name

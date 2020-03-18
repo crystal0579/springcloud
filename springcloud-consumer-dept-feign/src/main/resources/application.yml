@@ -1,0 +1,18 @@
+server:
+  port: 8080
+
+#Eureka配置
+eureka:
+  client:
+    register-with-eureka: false # 该module是消费服务的，所以不用向Eureka server 注册自己 默认为true
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
+
+# Hystrix
+# 因为Feign 已经融合了 Hystrix，所以不用再导包
+# Feign对Hystrix的支持默认是关闭的, 所以在Feign里开启， 也就不用去 @EnableCircuitBreaker或者@EnableHystrix
+# Hystrix的默认超时时间是1秒。默认开启超时机制。
+# Hystrix 超时时间需要大于 Feign 超时时间，否则 Feign 重试会失效
+feign:
+  hystrix:
+    enabled: true

@@ -1,0 +1,19 @@
+server:
+  port: 7001
+
+#Eureka配置
+eureka:
+  instance:
+   # hostname: localhost #Eureka 服务端的实例名称(即服务端的主机名)
+    hostname: eureka7001.com #原来是上面的写法，我去修改了C:\Windows\System32\drivers\etc 的 hosts 文件
+  client: #客户端信息
+    register-with-eureka: false # 表示是否向服务中心注册自己， 这里的module是服务端所以为false,默认为true
+    fetch-registry: false #表示是否去获取服务信息， false 表明自己就肯定是服务端了，是被fetch的
+    service-url: #监控页面
+      #这是单机的写法
+      #defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/  # 算是向外界提供的注册中心的地址，可以从EurekaClientConfigBean的源码无参构造方法里获知,网页端可以直接访问  http://localhost:7001/
+      #这是集群的写法 （需要关联别的server）
+      defaultZone: http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
+
+
+
